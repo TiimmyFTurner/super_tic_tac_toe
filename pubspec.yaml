@@ -40,6 +40,7 @@ dependencies:
   intl: any
   flutter_riverpod: ^2.6.1
   riverpod_annotation: ^2.6.1
+  freezed_annotation: ^2.4.4
 
 dev_dependencies:
   flutter_test:
@@ -55,6 +56,7 @@ dev_dependencies:
   build_runner: ^2.4.14
   custom_lint: ^0.7.0
   riverpod_lint: ^2.6.3
+  freezed: ^2.5.7
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
