@@ -13,7 +13,7 @@ class SuperTicTacToeApp extends StatelessWidget {
 
     return MaterialApp.router(
       routerConfig: AppRouter.router,
-      title: 'Flutter Demo',
+      title: 'Super Tic-Tac-Toe',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
         useMaterial3: true,
