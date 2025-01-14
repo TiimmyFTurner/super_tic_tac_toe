@@ -12,6 +12,7 @@ class SuperTicTacToeApp extends StatelessWidget {
     Locale locale = L10n.en;
 
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       routerConfig: AppRouter.router,
       title: 'Super Tic-Tac-Toe',
       theme: ThemeData(
