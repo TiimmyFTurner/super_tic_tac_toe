@@ -16,7 +16,7 @@ class SuperTicTacToeApp extends StatelessWidget {
       routerConfig: AppRouter.router,
       title: 'Super Tic-Tac-Toe',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.tealAccent),
         useMaterial3: true,
       ),
       supportedLocales: L10n.all,
