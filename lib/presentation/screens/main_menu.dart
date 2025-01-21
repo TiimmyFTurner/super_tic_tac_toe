@@ -22,7 +22,7 @@ class MainMenu extends StatelessWidget {
           backgroundColor: Colors.transparent,
           body: Center(
             child: Padding(
-              padding: const EdgeInsets.all(35), 
+              padding: const EdgeInsets.all(35),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
