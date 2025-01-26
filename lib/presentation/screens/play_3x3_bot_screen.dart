@@ -16,49 +16,46 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
   Widget build(BuildContext context) {
     List<List<String>> board = ref.watch(boardProvider);
     String currentPlayer = ref.watch(currentPlayerProvider);
-    String winner = ref.read(winnerCheckProvider);
+    String winner = ref.read(winnerCheckProvider(currentPlayer));
     TicTacToeBot bot = TicTacToeBot(board);
 
-    moveCheck() async {
-      winner = ref.read(winnerCheckProvider);
-      if (winner == '') {
-        ref.read(currentPlayerProvider.notifier).change();
-      } else {
-        if (winner != 'tie') {
-          ref.read(scoreBoardProvider.notifier).scored(winner);
-        }
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text(winner == 'Tie' ? 'It\'s a Tie!' : '$winner Wins!'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    ref.invalidate(boardProvider);
-                    ref.invalidate(currentPlayerProvider);
-                  },
-                  child: const Text('Play Again'),
-                ),
-              ],
-            );
-          },
-        );
-      }
-    }
-
-    void onTap(int row, int col) async {
+    void onTap(int row, int col) {
       if (board[row][col] == '' && winner == '') {
         board[row][col] = currentPlayer;
-        await moveCheck();
-        await Future.delayed(const Duration(milliseconds: 500));
-        List<int>? botMove = bot.findBestMove();
-        if (botMove != null) {
-          board[botMove[0]][botMove[1]] = 'O';
-          await moveCheck();
+
+        winner = ref.read(winnerCheckProvider(currentPlayer));
+        if (winner == '') {
+          List<int>? botMove = bot.findBestMove();
+          if (botMove != null) {
+            board[botMove[0]][botMove[1]] = 'O';
+          }
+          winner = ref.read(winnerCheckProvider('O'));
+        }
+        if (winner != '') {
+          if (winner != 'Tie') {
+            ref.read(scoreBoardProvider.notifier).scored(winner);
+          }
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text(winner == 'Tie' ? 'It\'s a Tie!' : '$winner Wins!'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      ref.invalidate(boardProvider);
+                      ref.invalidate(currentPlayerProvider);
+                    },
+                    child: const Text('Play Again'),
+                  ),
+                ],
+              );
+            },
+          );
         }
       }
+      setState(() {});
     }
 
     return Scaffold(
@@ -147,7 +144,7 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
                   children: [
                     for (int j = 0; j < 3; j++)
                       GestureDetector(
-                        onTap: () =>  onTap(i, j),
+                        onTap: () => onTap(i, j),
                         child: Container(
                           decoration: BoxDecoration(
                             color: Theme.of(context)

@@ -19,42 +19,11 @@ class Play3x3NoTieBotScreenState extends ConsumerState<Play3x3NoTieBotScreen> {
   Widget build(BuildContext context) {
     List<List<String>> board = ref.watch(boardProvider);
     String currentPlayer = ref.watch(currentPlayerProvider);
-    String winner = ref.read(winnerCheckProvider);
+    String winner = ref.read(winnerCheckProvider(currentPlayer));
     TicTacToeBot bot = TicTacToeBot(board);
     List<Queue<List<int>>> playerMoves = ref.watch(playerMovesProvider);
 
-    moveCheck() async {
-      winner = ref.read(winnerCheckProvider);
-
-      if (winner == '') {
-        ref.read(currentPlayerProvider.notifier).change();
-      } else {
-        if (winner != 'tie') {
-          ref.read(scoreBoardProvider.notifier).scored(winner);
-        }
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text(winner == 'Tie' ? 'It\'s a Tie!' : '$winner Wins!'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    ref.invalidate(boardProvider);
-                    ref.invalidate(currentPlayerProvider);
-                    ref.invalidate(playerMovesProvider);
-                  },
-                  child: const Text('Play Again'),
-                ),
-              ],
-            );
-          },
-        );
-      }
-    }
-
-    void onTap(int row, int col) async {
+    void onTap(int row, int col) {
       if (board[row][col] == '' && winner == '') {
         List removed =
             ref.read(playerMovesProvider.notifier).playerXMoved(row, col);
@@ -63,20 +32,46 @@ class Play3x3NoTieBotScreenState extends ConsumerState<Play3x3NoTieBotScreen> {
         }
 
         board[row][col] = currentPlayer;
-        await moveCheck();
-        await Future.delayed(const Duration(milliseconds: 500));
-        List<int>? botMove = bot.findBestMove();
-        if (botMove != null) {
-          board[botMove[0]][botMove[1]] = 'O';
-          List removed = ref
-              .read(playerMovesProvider.notifier)
-              .playerOMoved(botMove[0], botMove[1]);
-          if (removed.isNotEmpty) {
-            board[removed[0]][removed[1]] = '';
+
+        winner = ref.read(winnerCheckProvider(currentPlayer));
+        if (winner == '') {
+          List<int>? botMove = bot.findBestMove();
+          if (botMove != null) {
+            board[botMove[0]][botMove[1]] = 'O';
+            List removed = ref
+                .read(playerMovesProvider.notifier)
+                .playerOMoved(botMove[0], botMove[1]);
+            if (removed.isNotEmpty) {
+              board[removed[0]][removed[1]] = '';
+            }
           }
-          await moveCheck();
+          winner = ref.read(winnerCheckProvider('O'));
+        }
+        if (winner != '') {
+          if (winner != 'Tie') {
+            ref.read(scoreBoardProvider.notifier).scored(winner);
+          }
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text(winner == 'Tie' ? 'It\'s a Tie!' : '$winner Wins!'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      ref.invalidate(boardProvider);
+                      ref.invalidate(currentPlayerProvider);
+                    },
+                    child: const Text('Play Again'),
+                  ),
+                ],
+              );
+            },
+          );
         }
       }
+      setState(() {});
     }
 
     return Scaffold(

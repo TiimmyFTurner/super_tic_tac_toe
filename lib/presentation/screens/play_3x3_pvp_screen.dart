@@ -14,17 +14,17 @@ class Play3x3PvPScreenState extends ConsumerState<Play3x3PvPScreen> {
   Widget build(BuildContext context) {
     List<List<String>> board = ref.watch(boardProvider);
     String currentPlayer = ref.watch(currentPlayerProvider);
-    String winner = ref.read(winnerCheckProvider);
+    String winner = ref.read(winnerCheckProvider(currentPlayer));
 
     void onTap(int row, int col) {
       if (board[row][col] == '' && winner == '') {
         setState(() {
           board[row][col] = currentPlayer;
-          winner = ref.read(winnerCheckProvider);
+          winner = ref.read(winnerCheckProvider(currentPlayer));
           if (winner == '') {
             ref.read(currentPlayerProvider.notifier).change();
           } else {
-            if (winner != 'tie') {
+            if (winner != 'Tie') {
               ref.read(scoreBoardProvider.notifier).scored(winner);
             }
             showDialog(

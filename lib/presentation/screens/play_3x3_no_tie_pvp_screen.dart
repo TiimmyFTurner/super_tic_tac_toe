@@ -17,30 +17,31 @@ class Play3x3NoTiePvPScreenState extends ConsumerState<Play3x3NoTiePvPScreen> {
   Widget build(BuildContext context) {
     List<List<String>> board = ref.watch(boardProvider);
     String currentPlayer = ref.watch(currentPlayerProvider);
-    String winner = ref.read(winnerCheckProvider);
+    String winner = ref.read(winnerCheckProvider(currentPlayer));
     List<Queue<List<int>>> playerMoves = ref.watch(playerMovesProvider);
 
     void onTap(int row, int col) {
       if (board[row][col] == '' && winner == '') {
         setState(() {
-          if(currentPlayer == 'X'){
-            List removed = ref.read(playerMovesProvider.notifier).playerXMoved(row, col);
-            if (removed.isNotEmpty){
+          if (currentPlayer == 'X') {
+            List removed =
+                ref.read(playerMovesProvider.notifier).playerXMoved(row, col);
+            if (removed.isNotEmpty) {
               board[removed[0]][removed[1]] = '';
             }
-          }
-          else{
-            List removed = ref.read(playerMovesProvider.notifier).playerOMoved(row, col);
-            if (removed.isNotEmpty){
+          } else {
+            List removed =
+                ref.read(playerMovesProvider.notifier).playerOMoved(row, col);
+            if (removed.isNotEmpty) {
               board[removed[0]][removed[1]] = '';
             }
           }
           board[row][col] = currentPlayer;
-          winner = ref.read(winnerCheckProvider);
+          winner = ref.read(winnerCheckProvider(currentPlayer));
           if (winner == '') {
             ref.read(currentPlayerProvider.notifier).change();
           } else {
-            if (winner != 'tie') {
+            if (winner != 'Tie') {
               ref.read(scoreBoardProvider.notifier).scored(winner);
             }
             showDialog(

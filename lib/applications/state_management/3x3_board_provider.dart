@@ -25,9 +25,9 @@ class CurrentPlayer extends _$CurrentPlayer {
 }
 
 @riverpod
-String winnerCheck(Ref ref) {
+String winnerCheck(Ref ref,String currentPlayer) {
   List board = ref.read(boardProvider);
-  String currentPlayer = ref.read(currentPlayerProvider);
+  // String currentPlayer = ref.read(currentPlayerProvider);
   // Check rows
   for (int i = 0; i < 3; i++) {
     if (board[i][0] == currentPlayer &&
