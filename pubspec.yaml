@@ -41,6 +41,7 @@ dependencies:
   flutter_riverpod: ^2.6.1
   riverpod_annotation: ^2.6.1
   freezed_annotation: ^2.4.4
+  shared_preferences: ^2.4.0
 
 dev_dependencies:
   flutter_test:
