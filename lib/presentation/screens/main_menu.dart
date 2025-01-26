@@ -16,7 +16,9 @@ class MainMenu extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             actions: [
-              IconButton(onPressed: (){}, icon: Icon(Icons.settings,color: Colors.white,))
+              IconButton(onPressed: (){
+                context.push(Routes.settings);
+              }, icon: Icon(Icons.settings,color: Colors.white,size: 33,))
             ],
           ),
           backgroundColor: Colors.transparent,

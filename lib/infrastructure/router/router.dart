@@ -6,6 +6,7 @@ import 'package:super_tic_tac_toe/presentation/screens/play_3x3_bot_screen.dart'
 import 'package:super_tic_tac_toe/presentation/screens/play_3x3_no_tie_bot_screen.dart';
 import 'package:super_tic_tac_toe/presentation/screens/play_3x3_no_tie_pvp_screen.dart';
 import 'package:super_tic_tac_toe/presentation/screens/play_3x3_pvp_screen.dart';
+import 'package:super_tic_tac_toe/presentation/screens/settings_screen.dart';
 
 class AppRouter {
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -16,6 +17,10 @@ class AppRouter {
       GoRoute(
         path: Routes.homeRoutePath,
         builder: (context, state) => const MainMenu(),
+      ),
+      GoRoute(
+        path: Routes.settings,
+        builder: (context, state) => const SettingsScreen(),
       ),
       GoRoute(
         path: Routes.play3x3PvP,

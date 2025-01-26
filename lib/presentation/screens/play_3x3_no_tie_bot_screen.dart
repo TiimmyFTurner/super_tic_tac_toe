@@ -61,7 +61,7 @@ class Play3x3NoTieBotScreenState extends ConsumerState<Play3x3NoTieBotScreen> {
                     onPressed: () {
                       Navigator.of(context).pop();
                       ref.invalidate(boardProvider);
-                      ref.invalidate(currentPlayerProvider);
+                      ref.invalidate(playerMovesProvider);
                     },
                     child: const Text('Play Again'),
                   ),
