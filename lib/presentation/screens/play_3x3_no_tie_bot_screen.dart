@@ -174,9 +174,22 @@ class Play3x3NoTieBotScreenState extends ConsumerState<Play3x3NoTieBotScreen> {
                           // decoration: BoxDecoration(border: Border.all()),
                           child: Center(
                             child: board[i][j] == 'O'
-                                ? Image.asset('assets/theme/o1.png')
+                                ? Image.asset('assets/theme/o1.png',
+                                    opacity: AlwaysStoppedAnimation(
+                                        playerMoves[1].length > 2 &&
+                                                playerMoves[1].first[0] == i &&
+                                                playerMoves[1].first[1] == j
+                                            ? .65
+                                            : 1))
                                 : board[i][j] == 'X'
-                                    ? Image.asset('assets/theme/x1.png')
+                                    ? Image.asset('assets/theme/x1.png',
+                                        opacity: AlwaysStoppedAnimation(
+                                            playerMoves[0].length > 2 &&
+                                                    playerMoves[0].first[0] ==
+                                                        i &&
+                                                    playerMoves[0].first[1] == j
+                                                ? .65
+                                                : 1))
                                     : Container(),
                           ),
                         ),
