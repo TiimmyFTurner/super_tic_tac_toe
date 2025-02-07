@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:super_tic_tac_toe/applications/state_management/3x3_board_provider.dart';
+import 'package:super_tic_tac_toe/applications/state_management/game_config_provider.dart';
 
 class Play3x3PvPScreen extends ConsumerStatefulWidget {
   const Play3x3PvPScreen({super.key});
@@ -15,6 +16,8 @@ class Play3x3PvPScreenState extends ConsumerState<Play3x3PvPScreen> {
     List<List<String>> board = ref.watch(boardProvider);
     String currentPlayer = ref.watch(currentPlayerProvider);
     String winner = ref.read(winnerCheckProvider(currentPlayer));
+    String? playerOImage = ref.watch(playerPicProvider)['O'];
+    String? playerXImage = ref.watch(playerPicProvider)['X'];
 
     void onTap(int row, int col) {
       if (board[row][col] == '' && winner == '') {
@@ -87,7 +90,7 @@ class Play3x3PvPScreenState extends ConsumerState<Play3x3PvPScreen> {
                           SizedBox(
                               width: 50,
                               height: 50,
-                              child: Image.asset('assets/theme/x1.png')),
+                              child: Image.asset('assets/theme/X$playerXImage.png')),
                           Container(
                             width: 100,
                             height: 8,
@@ -110,7 +113,7 @@ class Play3x3PvPScreenState extends ConsumerState<Play3x3PvPScreen> {
                           SizedBox(
                               width: 50,
                               height: 50,
-                              child: Image.asset('assets/theme/o1.png')),
+                              child: Image.asset('assets/theme/O$playerOImage.png')),
                           Container(
                             width: 100,
                             height: 8,
@@ -150,9 +153,9 @@ class Play3x3PvPScreenState extends ConsumerState<Play3x3PvPScreen> {
                           // decoration: BoxDecoration(border: Border.all()),
                           child: Center(
                             child: board[i][j] == 'O'
-                                ? Image.asset('assets/theme/o1.png')
+                                ? Image.asset('assets/theme/O$playerOImage.png')
                                 : board[i][j] == 'X'
-                                    ? Image.asset('assets/theme/x1.png')
+                                    ? Image.asset('assets/theme/X$playerXImage.png')
                                     : Container(),
                           ),
                         ),

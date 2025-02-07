@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:super_tic_tac_toe/applications/state_management/3x3_board_provider.dart';
+import 'package:super_tic_tac_toe/applications/state_management/game_config_provider.dart';
 import 'package:super_tic_tac_toe/applications/state_management/no_tie_provider.dart';
 
 class Play3x3NoTiePvPScreen extends ConsumerStatefulWidget {
@@ -19,6 +20,8 @@ class Play3x3NoTiePvPScreenState extends ConsumerState<Play3x3NoTiePvPScreen> {
     String currentPlayer = ref.watch(currentPlayerProvider);
     String winner = ref.read(winnerCheckProvider(currentPlayer));
     List<Queue<List<int>>> playerMoves = ref.watch(playerMovesProvider);
+    String? playerOImage = ref.watch(playerPicProvider)['O'];
+    String? playerXImage = ref.watch(playerPicProvider)['X'];
 
     void onTap(int row, int col) {
       if (board[row][col] == '' && winner == '') {
@@ -106,7 +109,7 @@ class Play3x3NoTiePvPScreenState extends ConsumerState<Play3x3NoTiePvPScreen> {
                           SizedBox(
                               width: 50,
                               height: 50,
-                              child: Image.asset('assets/theme/x1.png')),
+                              child: Image.asset('assets/theme/X$playerXImage.png')),
                           Container(
                             width: 100,
                             height: 8,
@@ -129,7 +132,7 @@ class Play3x3NoTiePvPScreenState extends ConsumerState<Play3x3NoTiePvPScreen> {
                           SizedBox(
                               width: 50,
                               height: 50,
-                              child: Image.asset('assets/theme/o1.png')),
+                              child: Image.asset('assets/theme/O$playerOImage.png')),
                           Container(
                             width: 100,
                             height: 8,
@@ -169,7 +172,7 @@ class Play3x3NoTiePvPScreenState extends ConsumerState<Play3x3NoTiePvPScreen> {
                           // decoration: BoxDecoration(border: Border.all()),
                           child: Center(
                             child: board[i][j] == 'O'
-                                ? Image.asset('assets/theme/o1.png',
+                                ? Image.asset('assets/theme/O$playerOImage.png',
                                 opacity: AlwaysStoppedAnimation(
                                     playerMoves[1].length > 2 &&
                                         playerMoves[1].first[0] == i &&
@@ -177,7 +180,7 @@ class Play3x3NoTiePvPScreenState extends ConsumerState<Play3x3NoTiePvPScreen> {
                                         ? .65
                                         : 1))
                                 : board[i][j] == 'X'
-                                ? Image.asset('assets/theme/x1.png',
+                                ? Image.asset('assets/theme/X$playerXImage.png',
                                 opacity: AlwaysStoppedAnimation(
                                     playerMoves[0].length > 2 &&
                                         playerMoves[0].first[0] ==

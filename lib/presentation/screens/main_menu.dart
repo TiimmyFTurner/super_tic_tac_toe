@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:super_tic_tac_toe/infrastructure/router/router_consts.dart';
 
-class MainMenu extends StatelessWidget {
+class MainMenu extends ConsumerStatefulWidget {
   const MainMenu({super.key});
 
+  @override
+  ConsumerState createState() => _MainMenuState();
+}
+
+class _MainMenuState extends ConsumerState<MainMenu> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,9 +22,15 @@ class MainMenu extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             actions: [
-              IconButton(onPressed: (){
-                context.push(Routes.settings);
-              }, icon: Icon(Icons.settings,color: Colors.white,size: 33,))
+              IconButton(
+                  onPressed: () {
+                    context.push(Routes.settings);
+                  },
+                  icon: Icon(
+                    Icons.settings,
+                    color: Colors.white,
+                    size: 33,
+                  ))
             ],
           ),
           backgroundColor: Colors.transparent,
@@ -111,6 +123,7 @@ class MainMenu extends StatelessWidget {
                           context.push(Routes.play3x3NoTieBot);
                         }),
                   ),
+                  const SizedBox(height: 8),
                   const SizedBox(height: 100),
                 ],
               ),

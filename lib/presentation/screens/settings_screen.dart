@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:super_tic_tac_toe/applications/state_management/game_config_provider.dart';
 import 'package:super_tic_tac_toe/applications/state_management/setting_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,15 +18,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     String themeName = ref.watch(themeModeSettingProvider).name;
+    String? playerO = ref.watch(playerPicProvider)['O'];
+    String? playerX = ref.watch(playerPicProvider)['X'];
 
+    final picsList = List<String>.generate(3, (i) {
+      return (i + 1).toString();
+    });
 
     return Scaffold(
       appBar: AppBar(title: const Text("تنظیمات")),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-
-
           const Divider(),
           ListTile(
               title: const Text("انتخاب تم"),
@@ -97,6 +101,116 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   }),
                 );
               }),
+          // SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flexible(
+                  flex: 1,
+                  child: DropdownButtonFormField<String>(
+                    iconSize: 45,
+                    decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: "Player X"),
+                    value: playerX,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        ref
+                            .read(playerPicProvider.notifier)
+                            .changePic('X', newValue!);
+                      });
+                    },
+                    items: picsList.map((String item) {
+                      return DropdownMenuItem<String>(
+                        value: item,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                              image: DecorationImage(
+                                // fit: BoxFit.cover,
+                                image: AssetImage("assets/theme/X$item.png"),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                    selectedItemBuilder: (_) {
+                      return picsList.map<Widget>((String item) {
+                        return Container(
+                          width: 50,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                            image: DecorationImage(
+                              image: AssetImage("assets/theme/X$playerX.png"),
+                            ),
+                          ),
+                        );
+                      }).toList();
+                    },
+                  ),
+                ),
+                SizedBox(width: 20),
+                Flexible(
+                  flex: 1,
+                  child: DropdownButtonFormField<String>(
+                    iconSize: 45,
+                    decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: "Player O"),
+                    value: playerO,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        ref
+                            .read(playerPicProvider.notifier)
+                            .changePic('O', newValue!);
+                      });
+                    },
+                    items: picsList.map((String item) {
+                      return DropdownMenuItem<String>(
+                        value: item,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                              image: DecorationImage(
+                                // fit: BoxFit.cover,
+                                image: AssetImage("assets/theme/O$item.png"),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                    selectedItemBuilder: (_) {
+                      return picsList.map<Widget>((String item) {
+                        return Container(
+                          width: 50,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                            image: DecorationImage(
+                              image: AssetImage("assets/theme/O$playerO.png"),
+                            ),
+                          ),
+                        );
+                      }).toList();
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
           Center(
             child: Column(
               children: [

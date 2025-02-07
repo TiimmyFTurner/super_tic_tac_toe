@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:super_tic_tac_toe/applications/state_management/3x3_board_provider.dart';
+import 'package:super_tic_tac_toe/applications/state_management/game_config_provider.dart';
 import 'package:super_tic_tac_toe/presentation/helpers/tic_tac_toe_bot.dart';
-import 'dart:async';
+
 
 class Play3x3BotScreen extends ConsumerStatefulWidget {
   const Play3x3BotScreen({super.key});
@@ -18,6 +19,8 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
     String currentPlayer = ref.watch(currentPlayerProvider);
     String winner = ref.read(winnerCheckProvider(currentPlayer));
     TicTacToeBot bot = TicTacToeBot(board);
+    String? playerOImage = ref.watch(playerPicProvider)['O'];
+    String? playerXImage = ref.watch(playerPicProvider)['X'];
 
     void onTap(int row, int col) {
       if (board[row][col] == '' && winner == '') {
@@ -94,7 +97,7 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
                           SizedBox(
                               width: 50,
                               height: 50,
-                              child: Image.asset('assets/theme/x1.png')),
+                              child: Image.asset('assets/theme/X$playerXImage.png')),
                           Container(
                             width: 100,
                             height: 8,
@@ -117,7 +120,7 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
                           SizedBox(
                               width: 50,
                               height: 50,
-                              child: Image.asset('assets/theme/o1.png')),
+                              child: Image.asset('assets/theme/O$playerOImage.png')),
                           Container(
                             width: 100,
                             height: 8,
@@ -157,9 +160,9 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
                           // decoration: BoxDecoration(border: Border.all()),
                           child: Center(
                             child: board[i][j] == 'O'
-                                ? Image.asset('assets/theme/o1.png')
+                                ? Image.asset('assets/theme/O$playerOImage.png')
                                 : board[i][j] == 'X'
-                                    ? Image.asset('assets/theme/x1.png')
+                                    ? Image.asset('assets/theme/X$playerXImage.png')
                                     : Container(),
                           ),
                         ),

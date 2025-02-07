@@ -8,20 +8,20 @@ class PlayerPic extends _$PlayerPic {
   dynamic _prefs;
 
   @override
-  Map<String, int> build() {
+  Map<String, String> build() {
     _prefs = ref.watch(sharedPreferencesProvider);
-    final playerXPic = _prefs.getInt('PlayerXPic') ?? 1;
-    final playerOPic = _prefs.getInt('PlayerOPic') ?? 1;
+    final playerXPic = _prefs.getString('PlayerXPic') ?? '1';
+    final playerOPic = _prefs.getString('PlayerOPic') ?? '1';
     return {
       "X": playerXPic,
       "O": playerOPic,
     };
   }
 
-  void changePic(String player, int pic) {
-    Map<String, int> newState = state;
+  void changePic(String player, String pic) {
+    Map<String, String> newState = state;
     newState[player] = pic;
     state = newState;
-    _prefs.setInt('Player${player}Pic', pic);
+    _prefs.setString('Player${player}Pic', pic);
   }
 }
