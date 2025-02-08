@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:super_tic_tac_toe/infrastructure/router/router_consts.dart';
@@ -23,14 +24,15 @@ class _MainMenuState extends ConsumerState<MainMenu> {
             backgroundColor: Colors.transparent,
             actions: [
               IconButton(
-                  onPressed: () {
-                    context.push(Routes.settings);
-                  },
-                  icon: Icon(
-                    Icons.settings,
-                    color: Colors.white,
-                    size: 33,
-                  ))
+                onPressed: () {
+                  context.push(Routes.settings);
+                },
+                icon: Icon(
+                  Icons.settings,
+                  color: Colors.white,
+                  size: 33,
+                ),
+              )
             ],
           ),
           backgroundColor: Colors.transparent,
@@ -56,7 +58,7 @@ class _MainMenuState extends ConsumerState<MainMenu> {
                           style: TextStyle(fontSize: 24),
                         ),
                         onPressed: () {
-                          // HapticFeedback.lightImpact();
+                          HapticFeedback.lightImpact();
                           context.push(Routes.play3x3PvP);
                         }),
                   ),
@@ -77,7 +79,7 @@ class _MainMenuState extends ConsumerState<MainMenu> {
                           style: TextStyle(fontSize: 24),
                         ),
                         onPressed: () {
-                          // HapticFeedback.lightImpact();
+                          HapticFeedback.lightImpact();
                           context.push(Routes.play3x3bot);
                         }),
                   ),
@@ -98,7 +100,7 @@ class _MainMenuState extends ConsumerState<MainMenu> {
                           style: TextStyle(fontSize: 24),
                         ),
                         onPressed: () {
-                          // HapticFeedback.lightImpact();
+                          HapticFeedback.lightImpact();
                           context.push(Routes.play3x3NoTiePvP);
                         }),
                   ),
@@ -119,11 +121,10 @@ class _MainMenuState extends ConsumerState<MainMenu> {
                           style: TextStyle(fontSize: 24),
                         ),
                         onPressed: () {
-                          // HapticFeedback.lightImpact();
+                          HapticFeedback.lightImpact();
                           context.push(Routes.play3x3NoTieBot);
                         }),
                   ),
-                  const SizedBox(height: 8),
                   const SizedBox(height: 100),
                 ],
               ),

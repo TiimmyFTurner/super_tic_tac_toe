@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:super_tic_tac_toe/applications/state_management/3x3_board_provider.dart';
 import 'package:super_tic_tac_toe/applications/state_management/game_config_provider.dart';
 import 'package:super_tic_tac_toe/presentation/helpers/tic_tac_toe_bot.dart';
-
 
 class Play3x3BotScreen extends ConsumerStatefulWidget {
   const Play3x3BotScreen({super.key});
@@ -25,7 +25,6 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
     void onTap(int row, int col) {
       if (board[row][col] == '' && winner == '') {
         board[row][col] = currentPlayer;
-
         winner = ref.read(winnerCheckProvider(currentPlayer));
         if (winner == '') {
           List<int>? botMove = bot.findBestMove();
@@ -97,7 +96,8 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
                           SizedBox(
                               width: 50,
                               height: 50,
-                              child: Image.asset('assets/theme/X$playerXImage.png')),
+                              child: Image.asset(
+                                  'assets/theme/X$playerXImage.png')),
                           Container(
                             width: 100,
                             height: 8,
@@ -120,7 +120,8 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
                           SizedBox(
                               width: 50,
                               height: 50,
-                              child: Image.asset('assets/theme/O$playerOImage.png')),
+                              child: Image.asset(
+                                  'assets/theme/O$playerOImage.png')),
                           Container(
                             width: 100,
                             height: 8,
@@ -147,7 +148,10 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
                   children: [
                     for (int j = 0; j < 3; j++)
                       GestureDetector(
-                        onTap: () => onTap(i, j),
+                        onTap: () {
+                          HapticFeedback.mediumImpact();
+                          onTap(i, j);
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                             color: Theme.of(context)
@@ -157,12 +161,12 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
                           ),
                           width: 100,
                           height: 100,
-                          // decoration: BoxDecoration(border: Border.all()),
                           child: Center(
                             child: board[i][j] == 'O'
                                 ? Image.asset('assets/theme/O$playerOImage.png')
                                 : board[i][j] == 'X'
-                                    ? Image.asset('assets/theme/X$playerXImage.png')
+                                    ? Image.asset(
+                                        'assets/theme/X$playerXImage.png')
                                     : Container(),
                           ),
                         ),

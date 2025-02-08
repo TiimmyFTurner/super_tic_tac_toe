@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:super_tic_tac_toe/applications/state_management/3x3_board_provider.dart';
 import 'package:super_tic_tac_toe/applications/state_management/game_config_provider.dart';
@@ -140,7 +141,10 @@ class Play3x3PvPScreenState extends ConsumerState<Play3x3PvPScreen> {
                   children: [
                     for (int j = 0; j < 3; j++)
                       GestureDetector(
-                        onTap: () => onTap(i, j),
+                        onTap: () {
+                          HapticFeedback.mediumImpact();
+                          onTap(i, j);
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                             color: Theme.of(context)
