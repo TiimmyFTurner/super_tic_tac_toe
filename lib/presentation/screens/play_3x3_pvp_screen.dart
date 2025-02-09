@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:super_tic_tac_toe/applications/state_management/3x3_board_provider.dart';
 import 'package:super_tic_tac_toe/applications/state_management/game_config_provider.dart';
+import 'package:super_tic_tac_toe/infrastructure/router/router_consts.dart';
 
 class Play3x3PvPScreen extends ConsumerStatefulWidget {
   const Play3x3PvPScreen({super.key});
@@ -64,7 +66,15 @@ class Play3x3PvPScreenState extends ConsumerState<Play3x3PvPScreen> {
               onPressed: () {
                 ref.invalidate(boardProvider);
               },
-              icon: Icon(Icons.refresh))
+              icon: Icon(Icons.refresh)),
+          IconButton(
+            onPressed: () {
+              context.push(Routes.settings).then((r) {
+                setState(() {});
+              });
+            },
+            icon: Icon(Icons.settings),
+          )
         ],
       ),
       body: Column(
@@ -91,7 +101,8 @@ class Play3x3PvPScreenState extends ConsumerState<Play3x3PvPScreen> {
                           SizedBox(
                               width: 50,
                               height: 50,
-                              child: Image.asset('assets/theme/X$playerXImage.png')),
+                              child: Image.asset(
+                                  'assets/theme/X$playerXImage.png')),
                           Container(
                             width: 100,
                             height: 8,
@@ -114,7 +125,8 @@ class Play3x3PvPScreenState extends ConsumerState<Play3x3PvPScreen> {
                           SizedBox(
                               width: 50,
                               height: 50,
-                              child: Image.asset('assets/theme/O$playerOImage.png')),
+                              child: Image.asset(
+                                  'assets/theme/O$playerOImage.png')),
                           Container(
                             width: 100,
                             height: 8,
@@ -159,7 +171,8 @@ class Play3x3PvPScreenState extends ConsumerState<Play3x3PvPScreen> {
                             child: board[i][j] == 'O'
                                 ? Image.asset('assets/theme/O$playerOImage.png')
                                 : board[i][j] == 'X'
-                                    ? Image.asset('assets/theme/X$playerXImage.png')
+                                    ? Image.asset(
+                                        'assets/theme/X$playerXImage.png')
                                     : Container(),
                           ),
                         ),

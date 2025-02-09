@@ -3,9 +3,11 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:super_tic_tac_toe/applications/state_management/3x3_board_provider.dart';
 import 'package:super_tic_tac_toe/applications/state_management/game_config_provider.dart';
 import 'package:super_tic_tac_toe/applications/state_management/no_tie_provider.dart';
+import 'package:super_tic_tac_toe/infrastructure/router/router_consts.dart';
 import 'package:super_tic_tac_toe/presentation/helpers/tic_tac_toe_bot.dart';
 
 class Play3x3NoTieBotScreen extends ConsumerStatefulWidget {
@@ -87,7 +89,15 @@ class Play3x3NoTieBotScreenState extends ConsumerState<Play3x3NoTieBotScreen> {
                 ref.invalidate(currentPlayerProvider);
                 ref.invalidate(playerMovesProvider);
               },
-              icon: Icon(Icons.refresh))
+              icon: Icon(Icons.refresh)),
+          IconButton(
+            onPressed: () {
+              context.push(Routes.settings).then((r) {
+                setState(() {});
+              });
+            },
+            icon: Icon(Icons.settings),
+          )
         ],
       ),
       body: Column(
@@ -114,7 +124,8 @@ class Play3x3NoTieBotScreenState extends ConsumerState<Play3x3NoTieBotScreen> {
                           SizedBox(
                               width: 50,
                               height: 50,
-                              child: Image.asset('assets/theme/X$playerXImage.png')),
+                              child: Image.asset(
+                                  'assets/theme/X$playerXImage.png')),
                           Container(
                             width: 100,
                             height: 8,
@@ -137,7 +148,8 @@ class Play3x3NoTieBotScreenState extends ConsumerState<Play3x3NoTieBotScreen> {
                           SizedBox(
                               width: 50,
                               height: 50,
-                              child: Image.asset('assets/theme/O$playerOImage.png')),
+                              child: Image.asset(
+                                  'assets/theme/O$playerOImage.png')),
                           Container(
                             width: 100,
                             height: 8,
@@ -188,7 +200,8 @@ class Play3x3NoTieBotScreenState extends ConsumerState<Play3x3NoTieBotScreen> {
                                             ? .65
                                             : 1))
                                 : board[i][j] == 'X'
-                                    ? Image.asset('assets/theme/X$playerXImage.png',
+                                    ? Image.asset(
+                                        'assets/theme/X$playerXImage.png',
                                         opacity: AlwaysStoppedAnimation(
                                             playerMoves[0].length > 2 &&
                                                     playerMoves[0].first[0] ==

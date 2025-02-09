@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:super_tic_tac_toe/applications/state_management/3x3_board_provider.dart';
 import 'package:super_tic_tac_toe/applications/state_management/game_config_provider.dart';
+import 'package:super_tic_tac_toe/infrastructure/router/router_consts.dart';
 import 'package:super_tic_tac_toe/presentation/helpers/tic_tac_toe_bot.dart';
 
 class Play3x3BotScreen extends ConsumerStatefulWidget {
@@ -69,7 +71,15 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
                 ref.invalidate(boardProvider);
                 ref.invalidate(currentPlayerProvider);
               },
-              icon: Icon(Icons.refresh))
+              icon: Icon(Icons.refresh)),
+          IconButton(
+            onPressed: () {
+              context.push(Routes.settings).then((r) {
+                setState(() {});
+              });
+            },
+            icon: Icon(Icons.settings),
+          )
         ],
       ),
       body: Column(

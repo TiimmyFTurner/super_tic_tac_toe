@@ -3,9 +3,11 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:super_tic_tac_toe/applications/state_management/3x3_board_provider.dart';
 import 'package:super_tic_tac_toe/applications/state_management/game_config_provider.dart';
 import 'package:super_tic_tac_toe/applications/state_management/no_tie_provider.dart';
+import 'package:super_tic_tac_toe/infrastructure/router/router_consts.dart';
 
 class Play3x3NoTiePvPScreen extends ConsumerStatefulWidget {
   const Play3x3NoTiePvPScreen({super.key});
@@ -83,7 +85,15 @@ class Play3x3NoTiePvPScreenState extends ConsumerState<Play3x3NoTiePvPScreen> {
                 ref.invalidate(boardProvider);
                 ref.invalidate(playerMovesProvider);
               },
-              icon: Icon(Icons.refresh))
+              icon: Icon(Icons.refresh)),
+          IconButton(
+            onPressed: () {
+              context.push(Routes.settings).then((r) {
+                setState(() {});
+              });
+            },
+            icon: Icon(Icons.settings),
+          )
         ],
       ),
       body: Column(
@@ -110,7 +120,8 @@ class Play3x3NoTiePvPScreenState extends ConsumerState<Play3x3NoTiePvPScreen> {
                           SizedBox(
                               width: 50,
                               height: 50,
-                              child: Image.asset('assets/theme/X$playerXImage.png')),
+                              child: Image.asset(
+                                  'assets/theme/X$playerXImage.png')),
                           Container(
                             width: 100,
                             height: 8,
@@ -133,7 +144,8 @@ class Play3x3NoTiePvPScreenState extends ConsumerState<Play3x3NoTiePvPScreen> {
                           SizedBox(
                               width: 50,
                               height: 50,
-                              child: Image.asset('assets/theme/O$playerOImage.png')),
+                              child: Image.asset(
+                                  'assets/theme/O$playerOImage.png')),
                           Container(
                             width: 100,
                             height: 8,
@@ -177,22 +189,23 @@ class Play3x3NoTiePvPScreenState extends ConsumerState<Play3x3NoTiePvPScreen> {
                           child: Center(
                             child: board[i][j] == 'O'
                                 ? Image.asset('assets/theme/O$playerOImage.png',
-                                opacity: AlwaysStoppedAnimation(
-                                    playerMoves[1].length > 2 &&
-                                        playerMoves[1].first[0] == i &&
-                                        playerMoves[1].first[1] == j
-                                        ? .65
-                                        : 1))
+                                    opacity: AlwaysStoppedAnimation(
+                                        playerMoves[1].length > 2 &&
+                                                playerMoves[1].first[0] == i &&
+                                                playerMoves[1].first[1] == j
+                                            ? .65
+                                            : 1))
                                 : board[i][j] == 'X'
-                                ? Image.asset('assets/theme/X$playerXImage.png',
-                                opacity: AlwaysStoppedAnimation(
-                                    playerMoves[0].length > 2 &&
-                                        playerMoves[0].first[0] ==
-                                            i &&
-                                        playerMoves[0].first[1] == j
-                                        ? .65
-                                        : 1))
-                                : Container(),
+                                    ? Image.asset(
+                                        'assets/theme/X$playerXImage.png',
+                                        opacity: AlwaysStoppedAnimation(
+                                            playerMoves[0].length > 2 &&
+                                                    playerMoves[0].first[0] ==
+                                                        i &&
+                                                    playerMoves[0].first[1] == j
+                                                ? .65
+                                                : 1))
+                                    : Container(),
                           ),
                         ),
                       ),
