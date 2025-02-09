@@ -64,7 +64,36 @@ class Play3x3PvPScreenState extends ConsumerState<Play3x3PvPScreen> {
         actions: [
           IconButton(
               onPressed: () {
-                ref.invalidate(boardProvider);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Reset Game?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            'No',
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.error),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            setState(() {
+                              ref.invalidate(boardProvider);
+                              ref.invalidate(currentPlayerProvider);
+                            });
+                          },
+                          child: const Text('Reset'),
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
               icon: Icon(Icons.refresh)),
           IconButton(

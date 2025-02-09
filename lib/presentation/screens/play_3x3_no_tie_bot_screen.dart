@@ -85,9 +85,38 @@ class Play3x3NoTieBotScreenState extends ConsumerState<Play3x3NoTieBotScreen> {
         actions: [
           IconButton(
               onPressed: () {
-                ref.invalidate(boardProvider);
-                ref.invalidate(currentPlayerProvider);
-                ref.invalidate(playerMovesProvider);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Reset Game?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            'No',
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.error),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            setState(() {
+                              ref.invalidate(boardProvider);
+                              ref.invalidate(currentPlayerProvider);
+                              ref.invalidate(playerMovesProvider);
+                            });
+                          },
+                          child: const Text('Reset'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+
               },
               icon: Icon(Icons.refresh)),
           IconButton(
@@ -101,7 +130,6 @@ class Play3x3NoTieBotScreenState extends ConsumerState<Play3x3NoTieBotScreen> {
         ],
       ),
       body: Column(
-        // mainAxisAlignment: MainAxisAlignment.,
         children: [
           SizedBox(height: 75),
           Column(

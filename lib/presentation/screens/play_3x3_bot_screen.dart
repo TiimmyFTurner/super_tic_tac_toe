@@ -67,11 +67,40 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
         title: Text("3x3 Vs Bot"),
         actions: [
           IconButton(
-              onPressed: () {
-                ref.invalidate(boardProvider);
-                ref.invalidate(currentPlayerProvider);
-              },
-              icon: Icon(Icons.refresh)),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('Reset Game?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          'No',
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.error),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          setState(() {
+                            ref.invalidate(boardProvider);
+                            ref.invalidate(currentPlayerProvider);
+                          });
+                        },
+                        child: const Text('Reset'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            icon: Icon(Icons.refresh),
+          ),
           IconButton(
             onPressed: () {
               context.push(Routes.settings).then((r) {
@@ -83,7 +112,6 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
         ],
       ),
       body: Column(
-        // mainAxisAlignment: MainAxisAlignment.,
         children: [
           SizedBox(height: 75),
           Column(
