@@ -49,11 +49,11 @@ class LocaleSetting extends _$LocaleSetting {
     state = locale;
     switch (locale) {
       case L10n.fa:
-        _prefs.setInt('themeMode', 1);
+        _prefs.setInt('locale', 1);
       case L10n.en:
-        _prefs.setInt('themeMode', 2);
+        _prefs.setInt('locale', 2);
       default:
-        _prefs.remove('themeMode');
+        _prefs.remove('locale');
     }
   }
 }
