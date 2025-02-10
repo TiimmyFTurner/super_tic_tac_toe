@@ -1,11 +1,11 @@
-// Flutter imports:
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:super_tic_tac_toe/applications/state_management/game_config_provider.dart';
 import 'package:super_tic_tac_toe/applications/state_management/setting_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -26,19 +26,19 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     });
 
     return Scaffold(
-      appBar: AppBar(title: const Text("تنظیمات")),
+      appBar: AppBar(title:  Text(AppLocalizations.of(context)!.setting)),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const Divider(),
           ListTile(
-              title: const Text("انتخاب تم"),
+              title:  Text(AppLocalizations.of(context)!.theme),
               subtitle: Text(
                 themeName == "light"
-                    ? "روشن"
+                    ? AppLocalizations.of(context)!.light
                     : themeName == 'dark'
-                        ? 'تاریک'
-                        : 'پیش فرض سیستم',
+                        ? AppLocalizations.of(context)!.dark
+                        : AppLocalizations.of(context)!.system,
               ),
               onTap: () {
                 ThemeMode themeMode = ref.read(themeModeSettingProvider);
@@ -48,11 +48,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       StatefulBuilder(builder: (context, setState) {
                     return AlertDialog(
                       contentPadding: EdgeInsets.zero,
-                      title: const Text("انتخاب تم"),
+                      title:  Text(AppLocalizations.of(context)!.theme),
                       content:
                           Column(mainAxisSize: MainAxisSize.min, children: [
                         RadioListTile<ThemeMode>(
-                          title: const Text("روشن"),
+                          title:  Text(AppLocalizations.of(context)!.light),
                           value: ThemeMode.light,
                           groupValue: themeMode,
                           onChanged: (value) {
@@ -62,7 +62,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                           },
                         ),
                         RadioListTile<ThemeMode>(
-                          title: const Text("تاریک"),
+                          title:  Text(AppLocalizations.of(context)!.dark),
                           value: ThemeMode.dark,
                           groupValue: themeMode,
                           onChanged: (value) {
@@ -72,7 +72,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                           },
                         ),
                         RadioListTile<ThemeMode>(
-                          title: const Text("پیش فرض سیستم"),
+                          title:  Text(AppLocalizations.of(context)!.system),
                           value: ThemeMode.system,
                           groupValue: themeMode,
                           onChanged: (value) {
@@ -85,7 +85,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       actions: <Widget>[
                         TextButton(
                           onPressed: () => context.pop(),
-                          child: const Text("انصراف"),
+                          child:  Text(AppLocalizations.of(context)!.cancel),
                         ),
                         TextButton(
                           onPressed: () {
@@ -94,7 +94,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                 .read(themeModeSettingProvider.notifier)
                                 .changeTheme(themeMode);
                           },
-                          child: const Text("تایید"),
+                          child:  Text(AppLocalizations.of(context)!.done),
                         ),
                       ],
                     );
@@ -113,7 +113,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     iconSize: 45,
                     decoration: InputDecoration(
                         border: const OutlineInputBorder(),
-                        labelText: "Player X"),
+                        labelText: "${AppLocalizations.of(context)!.player} X"),
                     value: playerX,
                     onChanged: (String? newValue) {
                       setState(() {
@@ -164,7 +164,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     iconSize: 45,
                     decoration: InputDecoration(
                         border: const OutlineInputBorder(),
-                        labelText: "Player O"),
+                        labelText: "${AppLocalizations.of(context)!.player} O"),
                     value: playerO,
                     onChanged: (String? newValue) {
                       setState(() {

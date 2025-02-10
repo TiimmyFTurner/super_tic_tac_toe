@@ -1,1 +1,21 @@
-{}
+{
+  "play3x3PvP": "3x3 PvP",
+  "play3x3bot": "3x3 vs Bot",
+  "play3x3noTiePvP": "3x3 No Tie PvP",
+  "play3x3noTieBot": "3x3 No Tie vs Bot",
+  "itsTie": "Its a Tie!",
+  "wins": "Wins!",
+  "playAgain": "Play Again",
+  "resetGame": "Reset Game?",
+  "no": "No",
+  "reset": "Reset",
+  "players": "Players",
+  "player": "Player",
+  "setting": "Settings",
+  "theme": "Theme",
+  "light": "Light",
+  "dark": "Dark",
+  "system": "System",
+  "done": "Done",
+  "cancel": "Cancel"
+}

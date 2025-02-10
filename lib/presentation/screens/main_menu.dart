@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:super_tic_tac_toe/infrastructure/router/router_consts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainMenu extends ConsumerStatefulWidget {
   const MainMenu({super.key});
@@ -53,8 +54,8 @@ class _MainMenuState extends ConsumerState<MainMenu> {
                                 bottom: Radius.circular(4)),
                           ),
                         ),
-                        child: const Text(
-                          "Play 3x3 PvP",
+                        child: Text(
+                          AppLocalizations.of(context)!.play3x3PvP,
                           style: TextStyle(fontSize: 24),
                         ),
                         onPressed: () {
@@ -74,8 +75,8 @@ class _MainMenuState extends ConsumerState<MainMenu> {
                                 bottom: Radius.circular(4)),
                           ),
                         ),
-                        child: const Text(
-                          "Play 3x3 vs Bot",
+                        child: Text(
+                          AppLocalizations.of(context)!.play3x3bot,
                           style: TextStyle(fontSize: 24),
                         ),
                         onPressed: () {
@@ -95,8 +96,8 @@ class _MainMenuState extends ConsumerState<MainMenu> {
                                 bottom: Radius.circular(4)),
                           ),
                         ),
-                        child: const Text(
-                          "Play 3x3 No Tie PvP",
+                        child: Text(
+                          AppLocalizations.of(context)!.play3x3noTiePvP,
                           style: TextStyle(fontSize: 24),
                         ),
                         onPressed: () {
@@ -116,8 +117,8 @@ class _MainMenuState extends ConsumerState<MainMenu> {
                                 bottom: Radius.circular(18)),
                           ),
                         ),
-                        child: const Text(
-                          "Play 3x3 No Tie vs Bot",
+                        child: Text(
+                          AppLocalizations.of(context)!.play3x3noTieBot,
                           style: TextStyle(fontSize: 24),
                         ),
                         onPressed: () {

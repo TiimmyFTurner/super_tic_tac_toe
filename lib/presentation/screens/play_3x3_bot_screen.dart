@@ -6,6 +6,8 @@ import 'package:super_tic_tac_toe/applications/state_management/3x3_board_provid
 import 'package:super_tic_tac_toe/applications/state_management/game_config_provider.dart';
 import 'package:super_tic_tac_toe/infrastructure/router/router_consts.dart';
 import 'package:super_tic_tac_toe/presentation/helpers/tic_tac_toe_bot.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class Play3x3BotScreen extends ConsumerStatefulWidget {
   const Play3x3BotScreen({super.key});
@@ -43,7 +45,7 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Text(winner == 'Tie' ? 'It\'s a Tie!' : '$winner Wins!'),
+                title: Text(winner == 'Tie' ? AppLocalizations.of(context)!.itsTie : '$winner ${AppLocalizations.of(context)!.wins}'),
                 actions: [
                   TextButton(
                     onPressed: () {
@@ -51,7 +53,7 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
                       ref.invalidate(boardProvider);
                       ref.invalidate(currentPlayerProvider);
                     },
-                    child: const Text('Play Again'),
+                    child:  Text(AppLocalizations.of(context)!.playAgain),
                   ),
                 ],
               );
@@ -64,7 +66,7 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("3x3 Vs Bot"),
+        title: Text(AppLocalizations.of(context)!.play3x3bot),
         actions: [
           IconButton(
             onPressed: () {
@@ -72,14 +74,14 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: Text('Reset Game?'),
+                    title: Text(AppLocalizations.of(context)!.resetGame),
                     actions: [
                       TextButton(
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
                         child: Text(
-                          'No',
+                          AppLocalizations.of(context)!.no,
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.error),
                         ),
@@ -92,7 +94,7 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
                             ref.invalidate(currentPlayerProvider);
                           });
                         },
-                        child: const Text('Reset'),
+                        child:  Text(AppLocalizations.of(context)!.reset),
                       ),
                     ],
                   );
@@ -116,7 +118,7 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
           SizedBox(height: 75),
           Column(
             children: [
-              Text('Players',
+              Text(AppLocalizations.of(context)!.players,
                   style: Theme.of(context).textTheme.headlineMedium),
               SizedBox(height: 25),
               Row(
@@ -129,7 +131,7 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text("Player X (${ref.watch(scoreBoardProvider)[0]})",
+                          Text("${AppLocalizations.of(context)!.player} X (${ref.watch(scoreBoardProvider)[0]})",
                               style: Theme.of(context).textTheme.titleLarge),
                           SizedBox(
                               width: 50,
@@ -153,7 +155,7 @@ class Play3x3BotScreenState extends ConsumerState<Play3x3BotScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text("Player O (${ref.watch(scoreBoardProvider)[1]})",
+                          Text("${AppLocalizations.of(context)!.player} O (${ref.watch(scoreBoardProvider)[1]})",
                               style: Theme.of(context).textTheme.titleLarge),
                           SizedBox(
                               width: 50,

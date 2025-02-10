@@ -9,6 +9,8 @@ import 'package:super_tic_tac_toe/applications/state_management/game_config_prov
 import 'package:super_tic_tac_toe/applications/state_management/no_tie_provider.dart';
 import 'package:super_tic_tac_toe/infrastructure/router/router_consts.dart';
 import 'package:super_tic_tac_toe/presentation/helpers/tic_tac_toe_bot.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class Play3x3NoTieBotScreen extends ConsumerStatefulWidget {
   const Play3x3NoTieBotScreen({super.key});
@@ -60,7 +62,7 @@ class Play3x3NoTieBotScreenState extends ConsumerState<Play3x3NoTieBotScreen> {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Text(winner == 'Tie' ? 'It\'s a Tie!' : '$winner Wins!'),
+                title: Text(winner == 'Tie' ? AppLocalizations.of(context)!.itsTie : '$winner ${AppLocalizations.of(context)!.wins}'),
                 actions: [
                   TextButton(
                     onPressed: () {
@@ -68,7 +70,7 @@ class Play3x3NoTieBotScreenState extends ConsumerState<Play3x3NoTieBotScreen> {
                       ref.invalidate(boardProvider);
                       ref.invalidate(playerMovesProvider);
                     },
-                    child: const Text('Play Again'),
+                    child:  Text(AppLocalizations.of(context)!.playAgain),
                   ),
                 ],
               );
@@ -81,7 +83,7 @@ class Play3x3NoTieBotScreenState extends ConsumerState<Play3x3NoTieBotScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("3x3 No Tie Vs Bot"),
+        title: Text(AppLocalizations.of(context)!.play3x3noTieBot),
         actions: [
           IconButton(
               onPressed: () {
@@ -89,14 +91,14 @@ class Play3x3NoTieBotScreenState extends ConsumerState<Play3x3NoTieBotScreen> {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text('Reset Game?'),
+                      title: Text(AppLocalizations.of(context)!.resetGame),
                       actions: [
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
                           child: Text(
-                            'No',
+                            AppLocalizations.of(context)!.no,
                             style: TextStyle(
                                 color: Theme.of(context).colorScheme.error),
                           ),
@@ -110,7 +112,7 @@ class Play3x3NoTieBotScreenState extends ConsumerState<Play3x3NoTieBotScreen> {
                               ref.invalidate(playerMovesProvider);
                             });
                           },
-                          child: const Text('Reset'),
+                          child: Text(AppLocalizations.of(context)!.reset),
                         ),
                       ],
                     );
@@ -134,7 +136,7 @@ class Play3x3NoTieBotScreenState extends ConsumerState<Play3x3NoTieBotScreen> {
           SizedBox(height: 75),
           Column(
             children: [
-              Text('Players',
+              Text(AppLocalizations.of(context)!.players,
                   style: Theme.of(context).textTheme.headlineMedium),
               SizedBox(height: 25),
               Row(
@@ -147,7 +149,7 @@ class Play3x3NoTieBotScreenState extends ConsumerState<Play3x3NoTieBotScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text("Player X (${ref.watch(scoreBoardProvider)[0]})",
+                          Text("${AppLocalizations.of(context)!.player} X (${ref.watch(scoreBoardProvider)[0]})",
                               style: Theme.of(context).textTheme.titleLarge),
                           SizedBox(
                               width: 50,
@@ -171,7 +173,7 @@ class Play3x3NoTieBotScreenState extends ConsumerState<Play3x3NoTieBotScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text("Player O (${ref.watch(scoreBoardProvider)[1]})",
+                          Text("${AppLocalizations.of(context)!.player} O (${ref.watch(scoreBoardProvider)[1]})",
                               style: Theme.of(context).textTheme.titleLarge),
                           SizedBox(
                               width: 50,
