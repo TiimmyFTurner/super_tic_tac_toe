@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:super_tic_tac_toe/applications/state_management/game_config_provider.dart';
 import 'package:super_tic_tac_toe/applications/state_management/setting_provider.dart';
+import 'package:super_tic_tac_toe/l10n/l10n.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -26,13 +26,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     });
 
     return Scaffold(
-      appBar: AppBar(title:  Text(AppLocalizations.of(context)!.setting)),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.setting)),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const Divider(),
           ListTile(
-              title:  Text(AppLocalizations.of(context)!.theme),
+              title: Text(AppLocalizations.of(context)!.theme),
               subtitle: Text(
                 themeName == "light"
                     ? AppLocalizations.of(context)!.light
@@ -48,11 +48,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       StatefulBuilder(builder: (context, setState) {
                     return AlertDialog(
                       contentPadding: EdgeInsets.zero,
-                      title:  Text(AppLocalizations.of(context)!.theme),
+                      title: Text(AppLocalizations.of(context)!.theme),
                       content:
                           Column(mainAxisSize: MainAxisSize.min, children: [
                         RadioListTile<ThemeMode>(
-                          title:  Text(AppLocalizations.of(context)!.light),
+                          title: Text(AppLocalizations.of(context)!.light),
                           value: ThemeMode.light,
                           groupValue: themeMode,
                           onChanged: (value) {
@@ -62,7 +62,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                           },
                         ),
                         RadioListTile<ThemeMode>(
-                          title:  Text(AppLocalizations.of(context)!.dark),
+                          title: Text(AppLocalizations.of(context)!.dark),
                           value: ThemeMode.dark,
                           groupValue: themeMode,
                           onChanged: (value) {
@@ -72,7 +72,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                           },
                         ),
                         RadioListTile<ThemeMode>(
-                          title:  Text(AppLocalizations.of(context)!.system),
+                          title: Text(AppLocalizations.of(context)!.system),
                           value: ThemeMode.system,
                           groupValue: themeMode,
                           onChanged: (value) {
@@ -85,7 +85,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       actions: <Widget>[
                         TextButton(
                           onPressed: () => context.pop(),
-                          child:  Text(AppLocalizations.of(context)!.cancel),
+                          child: Text(AppLocalizations.of(context)!.cancel),
                         ),
                         TextButton(
                           onPressed: () {
@@ -94,14 +94,82 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                 .read(themeModeSettingProvider.notifier)
                                 .changeTheme(themeMode);
                           },
-                          child:  Text(AppLocalizations.of(context)!.done),
+                          child: Text(AppLocalizations.of(context)!.done),
                         ),
                       ],
                     );
                   }),
                 );
               }),
-          // SizedBox(height: 16),
+          ListTile(
+              title: Text(AppLocalizations.of(context)!.language),
+              subtitle: Text(AppLocalizations.of(context)!
+                  .languageMode(ref.watch(localeSettingProvider).toString())),
+              onTap: () {
+                Locale locale = ref.read(localeSettingProvider);
+                showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) =>
+                      StatefulBuilder(builder: (context, setState) {
+                    return AlertDialog(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(AppLocalizations.of(context)!.language),
+                      content:
+                          Column(mainAxisSize: MainAxisSize.min, children: [
+                        RadioListTile<Locale>(
+                          title: Text(
+                              AppLocalizations.of(context)!.languageMode('en')),
+                          value: L10n.en,
+                          groupValue: locale,
+                          onChanged: (value) {
+                            setState(() {
+                              locale = value!;
+                            });
+                          },
+                        ),
+                        RadioListTile<Locale>(
+                          title: Text(
+                              AppLocalizations.of(context)!.languageMode('fa')),
+                          value: L10n.fa,
+                          groupValue: locale,
+                          onChanged: (value) {
+                            setState(() {
+                              locale = value!;
+                            });
+                          },
+                        ),
+                        RadioListTile<Locale>(
+                          title: Text(AppLocalizations.of(context)!
+                              .languageMode('system')),
+                          value: L10n.system,
+                          groupValue: locale,
+                          onChanged: (value) {
+                            setState(() {
+                              locale = value!;
+                            });
+                          },
+                        ),
+                      ]),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => context.pop(),
+                          child: Text(AppLocalizations.of(context)!.cancel),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            context.pop();
+                            ref
+                                .read(localeSettingProvider.notifier)
+                                .changeLocale(locale);
+                          },
+                          child: Text(AppLocalizations.of(context)!.confirm),
+                        ),
+                      ],
+                    );
+                  }),
+                );
+              }),
+          SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.all(20),
             child: Row(

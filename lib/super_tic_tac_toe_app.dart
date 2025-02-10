@@ -13,7 +13,7 @@ class SuperTicTacToeApp extends ConsumerWidget {
   // This widget is the root of application.
   @override
   Widget build(BuildContext context, ref) {
-    Locale locale = L10n.en;
+    Locale locale = ref.watch(localeSettingProvider);
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,

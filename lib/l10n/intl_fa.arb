@@ -17,5 +17,8 @@
   "dark": "تاریک",
   "system": "پیش فرض سیستم",
   "done": "تایید",
-  "cancel": "انصراف"
+  "cancel": "انصراف",
+  "languageMode": "{language, select, en{English} fa{فارسی} system{پیش فرض سیستم}  other{زبان}}",
+  "language": "زبان",
+  "confirm": "ثبت"
 }

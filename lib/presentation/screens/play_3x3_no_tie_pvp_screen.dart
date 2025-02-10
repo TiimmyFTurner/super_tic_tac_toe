@@ -55,8 +55,9 @@ class Play3x3NoTiePvPScreenState extends ConsumerState<Play3x3NoTiePvPScreen> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title:
-                      Text(winner == 'Tie' ? AppLocalizations.of(context)!.itsTie : '$winner ${AppLocalizations.of(context)!.wins}'),
+                  title: Text(winner == 'Tie'
+                      ? AppLocalizations.of(context)!.itsTie
+                      : '$winner ${AppLocalizations.of(context)!.wins}'),
                   actions: [
                     TextButton(
                       onPressed: () {
@@ -143,7 +144,8 @@ class Play3x3NoTiePvPScreenState extends ConsumerState<Play3x3NoTiePvPScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text("${AppLocalizations.of(context)!.player} X (${ref.watch(scoreBoardProvider)[0]})",
+                          Text(
+                              "${AppLocalizations.of(context)!.player} X (${ref.watch(scoreBoardProvider)[0]})",
                               style: Theme.of(context).textTheme.titleLarge),
                           SizedBox(
                               width: 50,
@@ -167,7 +169,8 @@ class Play3x3NoTiePvPScreenState extends ConsumerState<Play3x3NoTiePvPScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text("${AppLocalizations.of(context)!.player} O (${ref.watch(scoreBoardProvider)[1]})",
+                          Text(
+                              "${AppLocalizations.of(context)!.player} O (${ref.watch(scoreBoardProvider)[1]})",
                               style: Theme.of(context).textTheme.titleLarge),
                           SizedBox(
                               width: 50,

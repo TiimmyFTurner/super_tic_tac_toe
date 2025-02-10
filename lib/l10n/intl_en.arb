@@ -17,5 +17,8 @@
   "dark": "Dark",
   "system": "System",
   "done": "Done",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "languageMode": "{language, select, en{English} fa{فارسی} system{System Default}  other{Language}}",
+  "language": "Language",
+  "confirm": "Confirm"
 }
