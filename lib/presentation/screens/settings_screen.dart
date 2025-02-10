@@ -283,7 +283,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             child: Column(
               children: [
                 const SizedBox(height: 36),
-                const Text("Super Tic-Tac-Toe   1.2.0",
+                const Text("Super Tic-Tac-Toe   1.1.0",
                     style: TextStyle(color: Colors.grey)),
                 const Text("Copyright © 2025 Timothy F. Turner",
                     style: TextStyle(color: Colors.grey)),
